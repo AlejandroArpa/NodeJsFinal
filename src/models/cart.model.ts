@@ -24,6 +24,6 @@ export class Carts extends Model{
 	)
 	userId!: Users
 	
-	@HasOne(()=>Users)
+	@BelongsTo(()=>Users)
 	user!: Users
 }

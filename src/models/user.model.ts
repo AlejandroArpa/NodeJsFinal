@@ -31,15 +31,6 @@ export class Users extends Model{
 		}
 	)
 	password!: string;
-    
-	@ForeignKey(()=>Carts)
-	@Column(
-		{
-			type:DataType.INTEGER,
-			allowNull:false
-		}
-	)
-	cartId!:Carts
 	
 	@HasOne(()=>Carts)
 	cart!: Carts;

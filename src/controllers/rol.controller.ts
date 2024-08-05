@@ -9,13 +9,23 @@ export class RolController {
 		res.status(200).json(roles);
 	}
 
-	static async createUser(req: Request, res: Response, next: NextFunction) {
+	static async createRol(req: Request, res: Response, next: NextFunction) {
 		try {
-		const userService = container.resolve(UserService);
-		const user = await userService.createUser(req.body);
-		res.status(201).json(user);
+			const rolService = container.resolve(RolService);
+			const rol = await rolService.createRol(req.body);
+			res.status(201).json(rol);
 		} catch (error) {
 			next(error);
+		}
+	}
+
+	static async deleteRol(req: Request, res: Response, next: NextFunction) {
+		try {
+			const rolService = container.resolve(RolService);
+			const rol = await rolService.deleteRol(parseInt( req.params.id));
+			res.status(200).json(rol);
+		} catch (error) {
+			next(error)
 		}
 	}
 }
