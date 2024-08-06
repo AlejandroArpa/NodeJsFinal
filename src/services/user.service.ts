@@ -11,15 +11,15 @@ export class UserService {
 		return await this.UserRepository.getAllUsers();
 	}
 
-	async createUser(user: CreationAttributes<Users>): Promise<Users | void> {
-		try {
-			return await this.UserRepository.createUser(user);
-		} catch (error) {
-			if (error instanceof Error) {
-				throw new Error('Service Error: ' + error.message);
-			} else {
-				throw new Error('Service Error: An unknown error occurred');
-			}
-		}
-	}
+	// async createUser(user: CreationAttributes<Users>): Promise<Users | void> {
+	// 	try {
+	// 		return await this.UserRepository.createUser(user);
+	// 	} catch (error) {
+	// 		if (error instanceof Error) {
+	// 			throw new Error('Service Error: ' + error.message);
+	// 		} else {
+	// 			throw new Error('Service Error: An unknown error occurred');
+	// 		}
+	// 	}
+	// }
 }

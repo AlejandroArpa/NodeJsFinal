@@ -9,19 +9,19 @@ export class UserController {
 		res.status(206).json(users);
 	}
 
-	static async createUser(req: Request, res: Response, next: NextFunction) {
-		try {
-		const userService = container.resolve(UserService);
-		const cartService = container.resolve(CartService);
-		const rolService = container.resolve(RolService);
-		await rolService.validateRol(req.body.rolId);
-		const user = await userService.createUser(req.body);
-		if(user){
-			const cart = await cartService.createCart({userId: user.id});
-			res.status(201).json({user, cart});
-		}
-		} catch (error) {
-			next(error);
-		}
-	}
+	// static async createUser(req: Request, res: Response, next: NextFunction) {
+	// 	try {
+	// 	const userService = container.resolve(UserService);
+	// 	const cartService = container.resolve(CartService);
+	// 	const rolService = container.resolve(RolService);
+	// 	await rolService.validateRol(req.body.rolId);
+	// 	const user = await userService.createUser(req.body);
+	// 	if(user){
+	// 		const cart = await cartService.createCart({userId: user.id});
+	// 		res.status(201).json({user, cart});
+	// 	}
+	// 	} catch (error) {
+	// 		next(error);
+	// 	}
+	// }
 }

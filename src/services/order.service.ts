@@ -12,18 +12,14 @@ export class OrderService {
 
     async createOrder(order: CreationAttributes<Orders>, products:ProductsCarts[]): Promise <Orders | void> {
         try {
-            const cleansProducts = [{}];
-            products.map(product => {
-                console.log(product);
-                
-                cleansProducts.push({
-                    quantity: product.quantity,
-                    price: product.product.price
-                })   
-            });
-            console.log(cleansProducts);
+
+            const total: number = products.reduce((acc, product) => {
+                const price = parseFloat(product.product.price);
+                return acc += price * product.quantity;
+            }, 0)
+            console.log(total);
             
-            return await this.OrderRepository.createOrder(order);
+            return await this.OrderRepository.createOrder({...order, total:total});
         } catch (error) {
             if (error instanceof Error) {
 				throw new Error('Service Error: ' + error.message);

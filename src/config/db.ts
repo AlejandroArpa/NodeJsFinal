@@ -9,7 +9,7 @@ const sequelize: Sequelize = new Sequelize({
     dialect: 'mysql',
     host: DB_HOST,
     username: DB_USER,
-    password: 'Rlwl2023.',
+    // password: 'Rlwl2023.',
     database: DB_NAME,
     port:3306,
     models: [Products, Users, Carts, Orders, Permissions, ProductsCarts, Roles],

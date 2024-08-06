@@ -5,6 +5,7 @@ import { productRoute } from './products.route';
 import { cartRoute } from './cart.route';
 import { productCartRoute } from './productCart.route';
 import { orderRoute } from './order.route';
+import { authRoute } from './auth.route';
 
 export const router = Router();
 
@@ -14,3 +15,4 @@ router.use('/products', productRoute);
 router.use('/carts', cartRoute);
 router.use('/productsCarts', productCartRoute);
 router.use('/orders', orderRoute);
+router.use('/auth', authRoute);

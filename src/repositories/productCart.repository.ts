@@ -1,6 +1,6 @@
 import { injectable } from "tsyringe";
-import { ProductsCarts } from "../models";
-import { CreationAttributes, where} from 'sequelize';
+import { ProductsCarts, Products } from "../models";
+import { CreationAttributes} from 'sequelize';
 
 @injectable()
 export class ProductsCartsRepository {
@@ -11,9 +11,10 @@ export class ProductsCartsRepository {
 	}
 
 	async getProductsAndQty(cartId: number): Promise<ProductsCarts[] | void> {
-		const products = await ProductsCarts.findAll({where :{cartId:cartId}, paranoid: true})
+		const products = await ProductsCarts.findAll({where :{cartId:cartId}, include: Products});
 		if(products.length > 0){
-			return products 
+			const result = products.map(pc => pc.get({ plain: true }));
+			return result ;
 		}
 		else throw new Error('There is not products in this cart')
 	}
