@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { container } from "tsyringe";
-import { UserService, CartService } from "../services/";
+import { UserService, CartService, RolService } from "../services/";
 
 export class UserController {
 	static async getAllUsers(_: Request, res: Response, next: NextFunction) {
@@ -13,6 +13,8 @@ export class UserController {
 		try {
 		const userService = container.resolve(UserService);
 		const cartService = container.resolve(CartService);
+		const rolService = container.resolve(RolService);
+		await rolService.validateRol(req.body.rolId);
 		const user = await userService.createUser(req.body);
 		if(user){
 			const cart = await cartService.createCart({userId: user.id});

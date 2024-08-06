@@ -27,6 +27,22 @@ export class ProductRepository {
         await product.destroy();
 	}
 
+	async findById(id:number): Promise<Products | void>{
+		const product = await Products.findByPk(id);
+		if (!product) {
+            throw new Error('Product not found');
+        }
+		else return product;
+	}
+
+	async getStock(id:number): Promise<number | void> {
+		const product = await Products.findByPk(id);
+		if (!product) {
+            throw new Error('Product not found');
+        }
+		else return product.stock;
+	}
+
 	async updateProduct(id:number, data: any): Promise<Products> {
 		const product = await Products.findByPk(id);
         if (!product) {

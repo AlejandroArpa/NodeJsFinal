@@ -22,9 +22,16 @@ export class RolRepository {
 	async deleteRol(id:number): Promise<void> {
 		const rol = await Roles.findByPk(id);
         if (!rol) {
-            throw new Error('Anime not found');
+            throw new Error('Rol not found');
         }
         await rol.destroy();
+	}
+
+	async validateRol(id:number): Promise<void> {
+		const rol = await Roles.findByPk(id);
+        if (!rol) {
+            throw new Error('Rol not found');
+        }
 	}
 
 	private handleSequelizeError(error: any) {
