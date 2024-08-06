@@ -23,6 +23,28 @@ export class ProductService {
 		}
 	}
 
+	
+	async findById(id:number): Promise<Products | void> {
+		try {
+			return await this.ProductRepository.findById(id)
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error('Service Error in Product: ' + error.message);
+			} else {
+				throw new Error('Service Error: An unknown error occurred');
+			}
+		}
+	}
+
+	async available(id: number, qty: number): Promise<void > {
+		const stock = await this.ProductRepository.getStock(id)
+		if(stock){
+			if(qty > stock){
+				throw new Error('Service Error: '+'Not stock available for that quantity')
+			}
+		}
+	}
+
 	async deleteProduct(id: number): Promise<void> {
 		try {
 			return await this.ProductRepository.deleteProduct(id);

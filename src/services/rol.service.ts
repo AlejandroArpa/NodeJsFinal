@@ -23,6 +23,18 @@ export class RolService {
 		}
 	}
 
+	async validateRol(id:number): Promise<void> {
+		try {
+			return await this.RolRepository.validateRol(id);
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error('Service Error: ' + error.message);
+			} else {
+				throw new Error('Service Error: An unknown error occurred');
+			}
+		}
+	}
+
 	async deleteRol(id: number): Promise<void> {
 		try {
 			return await this.RolRepository.deleteRol(id);

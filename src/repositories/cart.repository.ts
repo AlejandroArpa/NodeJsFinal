@@ -18,6 +18,14 @@ export class CartRepository {
         await cart.destroy();
 	}
 
+	async findById(id:number): Promise<Carts | void>{
+		const cart = await Carts.findByPk(id);
+		if (!cart) {
+            throw new Error('Cart not found');
+        }
+		else return cart;
+	}
+
 	private handleSequelizeError(error: any) {
 		if (error instanceof Error) {
 			throw new Error('Repository Error: ' + error.message);

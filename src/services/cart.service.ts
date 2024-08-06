@@ -19,6 +19,18 @@ export class CartService {
 		}
 	}
 
+	async findById(id: number): Promise<Carts | void> {
+		try {
+			return await this.CartRepository.findById(id);
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error('Service Error: ' + error.message);
+			} else {
+				throw new Error('Service Error: An unknown error occurred');
+			}
+		}
+	}
+
 	async deleteCart(id: number): Promise<void> {
 		try {
 			return await this.CartRepository.deleteCart(id);

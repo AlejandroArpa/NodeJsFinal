@@ -1,4 +1,4 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement, HasOne, HasMany } from "sequelize-typescript";
+import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement, HasOne, HasMany, Unique } from "sequelize-typescript";
 import { Carts, Orders, Roles } from "./";
 
 @Table({
@@ -17,17 +17,20 @@ export class Users extends Model{
 	)
 	name!: string;
 
+
 	@Column(
 		{
 			type: DataType.STRING(200),
 			allowNull: false,
+			unique: true
 		}
 	)
 	email!: string;
 
     @Column(
 		{
-			type: DataType.STRING(50)
+			type: DataType.STRING(50),
+			allowNull: false
 		}
 	)
 	password!: string;
