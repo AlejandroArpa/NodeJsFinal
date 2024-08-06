@@ -1,5 +1,5 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement, HasOne } from "sequelize-typescript";
-import { Users } from "./";
+import { Users, Carts } from "./";
 
 @Table({
 	tableName: 'orders',
@@ -25,4 +25,13 @@ export class Orders extends Model{
 	
 	@BelongsTo(()=>Users)
 	user!:Users;
+
+	@ForeignKey(()=>Carts)
+	@Column(
+		{type:DataType.INTEGER, allowNull:false}
+	)
+	cartId!: number;
+	
+	@BelongsTo(()=>Carts)
+	carts!:Carts;
 }

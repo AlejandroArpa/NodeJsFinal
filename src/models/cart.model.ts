@@ -1,5 +1,5 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement, HasOne, HasMany } from "sequelize-typescript";
-import { ProductsCarts, Users } from "./";
+import { ProductsCarts, Users, Orders } from "./";
 
 @Table({
 	tableName: 'carts',
@@ -26,4 +26,7 @@ export class Carts extends Model{
 	
 	@BelongsTo(()=>Users)
 	user!: Users
+
+	@HasOne(()=>Orders)
+	order!: Orders
 }
