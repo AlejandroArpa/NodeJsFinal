@@ -23,6 +23,17 @@ export class ProductCartService {
 		}
 	}
 
+	async getProductsAndQty (cartId: number): Promise<ProductsCarts[] | void> {
+		try {
+			return await this.ProductsCartsRepository.getProductsAndQty(cartId);
+		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error('Service Error in ProductCart: ' + error.message);
+			} else {
+				throw new Error('Service Error: An unknown error occurred');
+			}
+		}
+	}
 	// async deleteProduct(id: number): Promise<void> {
 	// 	try {
 	// 		return await this.ProductsCartsRepository.deleteProduct(id);
