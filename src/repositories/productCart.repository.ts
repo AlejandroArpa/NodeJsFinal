@@ -10,10 +10,10 @@ export class ProductsCartsRepository {
 		return await ProductsCarts.create(productCart);
 	}
 
-	async getProductsAndQty(cartId: number): Promise<{productId:number, quantity:number}[] | void> {
-		const products = await ProductsCarts.findAll({where :{cartId:cartId}})
+	async getProductsAndQty(cartId: number): Promise<ProductsCarts[] | void> {
+		const products = await ProductsCarts.findAll({where :{cartId:cartId}, paranoid: true})
 		if(products.length > 0){
-			return products
+			return products 
 		}
 		else throw new Error('There is not products in this cart')
 	}

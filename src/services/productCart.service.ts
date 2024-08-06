@@ -23,7 +23,7 @@ export class ProductCartService {
 		}
 	}
 
-	async getProductsAndQty (cartId: number): Promise<{productId:number, quantity:number}[] | void> {
+	async getProductsAndQty (cartId: number): Promise<ProductsCarts[] | void> {
 		try {
 			return await this.ProductsCartsRepository.getProductsAndQty(cartId);
 		} catch (error) {
