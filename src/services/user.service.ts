@@ -23,15 +23,12 @@ export class UserService {
 			errorInstanceThrowService(error);
 		}
 	}
-	// async createUser(user: CreationAttributes<Users>): Promise<Users | void> {
-	// 	try {
-	// 		return await this.UserRepository.createUser(user);
-	// 	} catch (error) {
-	// 		if (error instanceof Error) {
-	// 			throw new Error('Service Error: ' + error.message);
-	// 		} else {
-	// 			throw new Error('Service Error: An unknown error occurred');
-	// 		}
-	// 	}
-	// }
+	// Delete
+	async deleteUser(id: number): Promise<void> {
+		try {
+			return await this.UserRepository.deleteUser(id);
+		} catch (error) {
+			errorInstanceThrowService(error);
+		}
+	}
 }

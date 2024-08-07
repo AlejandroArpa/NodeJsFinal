@@ -1,15 +1,12 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { ProductCartService, ProductService, CartService } from "../services/";
+import { errorHandler } from "../utilities";
 
 export class ProductCartController {
-	// static async getAllProducts(_: Request, res: Response, next: NextFunction) {
-	// 	const productService = container.resolve(ProductService);
-	// 	const products = await productService.getAllProducts();
-	// 	res.status(200).json(products);
-	// }
 
-	static async createProductCart(req: Request, res: Response, next: NextFunction) {
+	// Create
+	static async createProductCart(req: Request, res: Response) {
 		try {
 			const productCartService = container.resolve(ProductCartService);
 			const cartService = container.resolve(CartService);
@@ -22,27 +19,34 @@ export class ProductCartController {
 				res.status(201).json(productCart);
 			}
 		} catch (error) {
-			next(error);
+			if(error instanceof Error){
+				errorHandler(error, req, res);
+			}
+		}
+	}
+	// Update
+	static async updateProductCartProductsQty(req: Request, res: Response) {
+		try {
+			const productCartService = container.resolve(ProductCartService);
+			const productCart = await productCartService.updateProductCartProductsQty(parseInt(req.params.id), parseInt(req.params.productId), parseInt(req.body.quantity));
+			res.status(201).json(productCart);
+		} catch (error) {
+			if(error instanceof Error){
+				errorHandler(error, req, res);
+			}
+		}
+	}
+	// Delete
+	static async deleteProductCartProducts(req: Request, res: Response) {
+		try {
+			const productCartService = container.resolve(ProductCartService);
+			const productCart = await productCartService.deleteProductCartProducts(parseInt(req.params.id), parseInt(req.params.productId));
+			res.status(201).json(productCart);
+		} catch (error) {
+			if(error instanceof Error){
+				errorHandler(error, req, res);
+			}
 		}
 	}
 
-	// static async deleteProduct(req: Request, res: Response, next: NextFunction) {
-	// 	try {
-	// 		const productService = container.resolve(ProductService);
-	// 		const product = await productService.deleteProduct(parseInt( req.params.id));
-	// 		res.status(201).json(product);
-	// 	} catch (error) {
-	// 		next(error);
-	// 	}
-	// }
-
-	// static async updateProduct(req: Request, res: Response, next: NextFunction){
-	// 	try {
-	// 		const productService = container.resolve(ProductService);
-	// 		const product = await productService.updateProduct(parseInt( req.params.id), req.body);
-	// 		res.status(200).json(product);
-	// 	} catch (error) {
-	// 		next(error);
-	// 	}
-	// }
 }

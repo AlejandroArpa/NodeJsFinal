@@ -5,11 +5,11 @@ import { CreationAttributes} from 'sequelize';
 @injectable()
 export class ProductsCartsRepository {
 
-
+	// Create
 	async createProductCart(productCart: CreationAttributes<ProductsCarts>): Promise<ProductsCarts> {
 		return await ProductsCarts.create(productCart);
 	}
-
+	// Read
 	async getProductsAndQty(cartId: number): Promise<ProductsCarts[] | void> {
 		const products = await ProductsCarts.findAll({where :{cartId:cartId}, include: Products});
 		if(products.length > 0){
@@ -18,20 +18,22 @@ export class ProductsCartsRepository {
 		}
 		else throw new Error('There is not products in this cart')
 	}
-
-	// async deleteCart(id:number): Promise<void> {
-	// 	const cart = await Carts.findByPk(id);
-    //     if (!cart) {
-    //         throw new Error('Cart not found');
-    //     }
-    //     await cart.destroy();
-	// }
-
-	private handleSequelizeError(error: any) {
-		if (error instanceof Error) {
-			throw new Error('Repository Error: ' + error.message);
-	} else {
-			throw new Error('Repository Error: An unknown error occurred');
+	// Update
+	async updateProductCartProductsQty(id: number, productId: number, quantity:number): Promise<ProductsCarts> {
+		const productCart = await ProductsCarts.findOne({where: {cartId:id, productId:productId}});
+		if(productCart){
+			productCart.quantity = quantity;
+			await productCart.save();
+			return productCart;
+		}
+		else throw new Error('Product not found')
 	}
-}
+	// Delete
+	async deleteProductCartProducts(id: number, productId: number): Promise<void> {
+		const productCart = await ProductsCarts.findOne({where: {cartId:id, productId:productId}});
+		if(productCart){
+			await productCart.destroy();
+		}
+		else throw new Error('Product not found')
+	}
 }

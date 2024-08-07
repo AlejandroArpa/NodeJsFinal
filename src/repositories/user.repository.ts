@@ -19,10 +19,22 @@ export class UserRepository {
 			handleSequelizeError(error);
 		}
 	}
+	async getUserById(id: number): Promise<Users | void> {
+		try {
+			const user = await Users.findByPk(id);
+			if (!user) {
+				throw new Error('User not found');
+			}
+			return user;
+		} catch (error) {
+			handleSequelizeError(error);
+		}
+	}
+
 	// Update
 	async updateUser(id: number, user: CreationAttributes<Users>) : Promise<Users | void> {
 		try {
-			const userToUpdate = await Users.findByPk(id);
+			const userToUpdate = await this.getUserById(id);
 			if (!userToUpdate) {
 				throw new Error('User not found');
 			}
@@ -30,6 +42,19 @@ export class UserRepository {
 			return userToUpdate;
 		} catch (error) {
 			console.log(error);
+			handleSequelizeError(error);
+		}
+	}
+
+	// Delete
+	async deleteUser(id: number): Promise<void> {
+		try {
+			const user = await this.getUserById(id);
+			if (!user) {
+				throw new Error('User not found');
+			}
+			await user.destroy();
+		} catch (error) {
 			handleSequelizeError(error);
 		}
 	}

@@ -29,7 +29,7 @@ function mapErrorToResponse(error: Error) {
 		return mappedError 
 	}
 	else {
-		return {statusCode: 500, message: 'Error without handler'};
+		return {statusCode: 500, message: 'Error without handler', data: error.message};
 	}
 }
 

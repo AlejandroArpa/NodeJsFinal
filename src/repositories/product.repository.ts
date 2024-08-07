@@ -12,7 +12,18 @@ export class ProductRepository {
 			console.log(error);
 			this.handleSequelizeError(error);
 		}
-		
+	}
+
+	async getProductsByOrderId(id: number): Promise<Products[] | void> {
+		try {
+			return await Products.findAll({
+				where: {
+					orderId: id
+				}
+			});
+		} catch (error) {
+			this.handleSequelizeError(error);
+		}
 	}
 
 	async createProduct(product: CreationAttributes<Products>): Promise<Products> {
