@@ -9,7 +9,6 @@ export class PermissionsRepository {
 		const permissions= await Permissions.findAll({ where: { roleId: role }} );
 		if(permissions){
 			const plainPermissions = permissions.map(permission => permission.get({ plain: true }));
-			console.log(plainPermissions);
 			return plainPermissions;
 		}
 		else{
