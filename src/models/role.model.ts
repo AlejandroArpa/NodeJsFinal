@@ -1,9 +1,9 @@
-import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, HasMany } from "sequelize-typescript";
-import { Users } from "./";
+import { Table, Column, Model, DataType, PrimaryKey, AutoIncrement, HasMany, HasOne } from "sequelize-typescript";
+import { Users, Permissions } from "./";
 
 @Table({
 	tableName: 'roles',
-	timestamps: true,
+	timestamps: false,
 })
 
 export class Roles extends Model{
@@ -19,4 +19,7 @@ export class Roles extends Model{
 
 	@HasMany(()=>Users)
 	userId!: Users[];
+
+	@HasMany(()=>Permissions)
+	roleId!: Permissions;
 }

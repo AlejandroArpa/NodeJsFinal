@@ -1,9 +1,9 @@
 import { Table, Column, Model, DataType, ForeignKey, BelongsTo, PrimaryKey, AutoIncrement, HasOne } from "sequelize-typescript";
-// import { Studios, Directors } from "./";
+import { Entities, Roles } from "./";
 
 @Table({
 	tableName: 'permissions',
-	timestamps: true,
+	timestamps: false,
 })
 
 export class Permissions extends Model{
@@ -11,11 +11,6 @@ export class Permissions extends Model{
 	@AutoIncrement
 	@Column(DataType.INTEGER)
 	id!: number;
-
-	@Column(
-		{type: DataType.STRING, allowNull: false}
-	)
-	name!: string;
 
     @Column(
         {type: DataType.BOOLEAN, allowNull:false}
@@ -36,4 +31,18 @@ export class Permissions extends Model{
         {type: DataType.BOOLEAN, allowNull:false}
     )
     canGet!: boolean;
+
+    @ForeignKey(() => Roles)
+    @Column(DataType.INTEGER)
+    roleId!: number;
+
+    @BelongsTo(() => Roles)
+    role!: Roles;
+
+    @ForeignKey(()=>Entities)
+    @Column(DataType.INTEGER)
+    entityId!: number;
+
+    @BelongsTo(()=>Entities)
+    entity!: Entities;
 }

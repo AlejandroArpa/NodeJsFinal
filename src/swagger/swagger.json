@@ -11,7 +11,20 @@
 	"tags": [
 		{
 			"name": "Authentication"
+		},
+		{
+			"name": "Users"
+		},
+		{
+			"name": "Products"
+		},
+		{
+			"name":"Products Carts"
+		},
+		{
+			"name": "Orders"
 		}
+		
 	],
   "paths": {
     "/api/auth": {
@@ -19,14 +32,128 @@
 				"tags": ["Authentication"],
         "summary": "User register",
 				"parameters": [
-
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "User name",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					}
 				],
         "responses": {
-          "200": {
-            "description": "Successful response"
+          "201": {
+            "description": "User register"
           }
         }
       }
+    },
+		"/api/auth/login": {
+			"post": {
+				"tags": ["Authentication"],
+				"summary": "User login",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "User email and password",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"email": {
+									"type": "string",
+									"default": "john.doe@example.com"
+								},
+								"password": {
+									"type": "string"
+								}
+							},
+							"required": ["email", "password"]
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "User login"
+					}
+				}
+			}
+		},
+		"/api/users": {
+			"get": {
+				"tags": ["Users"],
+				"summary": "Get all users",
+				"responses": {
+					"206": {
+						"description": "Get all users"
+					}
+				}
+			}
+		},
+		"/api/users/{id}":{
+			"put":{
+				"tags": ["Users"],
+				"summary": "Update user",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"description": "User id to update",
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"description": "User name",
+						"schema": {
+							"$ref": "#/definitions/User"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "User updated"
+					}
+				}
+			}
+		},
+		"/api/orders": {
+			"get": {
+				"tags": ["Orders"],
+				"summary": "Get all orders",
+				"responses": {
+					"206": {
+						"description": "Get all orders"
+					}
+				}
+			}
+		}
+  },
+	"definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+					"default": "John Doe"
+        },
+        "email": {
+          "type": "string",
+					"default": "john.doe@example.com"
+        },
+        "password": {
+          "type": "string"
+        },
+				"rolId": {
+					"type": "integer",
+					"default": 1
+				}
+      },
+      "required": ["name", "email", "password", "rolId"]
     }
-  }
+	}
 }

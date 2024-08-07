@@ -29,7 +29,7 @@ export class Users extends Model{
 
     @Column(
 		{
-			type: DataType.STRING(50),
+			type: DataType.STRING(200),
 			allowNull: false
 		}
 	)

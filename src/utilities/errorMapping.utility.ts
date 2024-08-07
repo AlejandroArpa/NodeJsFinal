@@ -1,8 +1,8 @@
 
-type ErrorType = 'Validation Error' | 'Database Error' | 'Service Error'| 'notNull Violation' | 'Cannot add or update a child row' | 'Product not found' | 'Cart not found' | 'Not stock available for that quantity' | 'Rol not found';
+type ErrorType = 'Validation error' | 'Database Error' | 'Service Error'| 'notNull Violation' | 'Cannot add or update a child row' | 'Product not found' | 'Cart not found' | 'Not stock available for that quantity' | 'Rol not found';
 
 const errorMapping: Record<ErrorType, {statusCode: number; message: string }>  = {
-	'Validation Error' : { statusCode: 400, message: 'Invalid input data' },
+	'Validation error' : { statusCode: 400, message: 'Invalid input data' },
 	'Database Error': { statusCode: 500, message: 'Internal server error' },
 	'Service Error': { statusCode: 500, message: 'Service error' },
 	'notNull Violation': { statusCode: 400, message: 'Invalid input data' },
@@ -10,7 +10,7 @@ const errorMapping: Record<ErrorType, {statusCode: number; message: string }>  =
 	'Product not found': {statusCode: 404, message: 'Product not exist' },
 	'Cart not found': {statusCode: 404, message: 'Cart not exist' },
 	'Not stock available for that quantity': {statusCode:404, message: 'Not stock available for that quantity'},
-	'Rol not found': {statusCode:404, message: 'Rol not found'}
+	'Rol not found': {statusCode:404, message: 'Rol not found'},
 };
 
 function mapErrorToResponse(error: Error) {
