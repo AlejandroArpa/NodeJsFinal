@@ -27,6 +27,6 @@ export class Carts extends Model{
 	@BelongsTo(()=>Users)
 	user!: Users
 
-	@HasOne(()=>Orders)
+	@HasMany(()=>Orders)
 	order!: Orders
 }

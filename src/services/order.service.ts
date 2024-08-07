@@ -1,4 +1,4 @@
-import { OrderRepository, UserRepository } from "../repositories";
+import { OrderRepository, UserRepository, ProductsCartsRepository} from "../repositories";
 import { injectable, inject } from "tsyringe";
 import { Orders, ProductsCarts } from "../models";
 import { CreationAttributes } from "sequelize";
@@ -8,7 +8,7 @@ import { errorInstanceThrowService } from "../utilities";
 
 @injectable()
 export class OrderService {
-    constructor (@inject(OrderRepository) private OrderRepository: OrderRepository, @inject(UserRepository) private UserRepository: UserRepository)
+    constructor (@inject(OrderRepository) private OrderRepository: OrderRepository, @inject(ProductsCartsRepository) private ProductsCartsRepository: ProductsCartsRepository, @inject(UserRepository) private UserRepository: UserRepository)
     {}
     // Create
     async createOrder(order: CreationAttributes<Orders>, products:ProductsCarts[]): Promise <Orders | void> {
@@ -37,6 +37,7 @@ export class OrderService {
     async getOrderByUser(id: number): Promise<Orders[] | void> {
         try {
             await this.UserRepository.getUserById(id);
+            // const productsCart = await this.ProductsCartsRepository.getProductsCartByUser(id);
             return await this.OrderRepository.getOrderByUser(id);
         } catch (error) {
             errorInstanceThrowService(error);
